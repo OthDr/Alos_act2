@@ -2,6 +2,10 @@ const express = require('express');
 const { redirect } = require('express/lib/response');
 
 const app = express();
+const bParser = require('body-parser');
+
+
+app.use(bParser.json()); // MiddleWare to parse the POST body json   
 
 var countries = ['dz','us','fr','ru','in','de','tr','eg','br','ca','cz','it','ua'];
 var categories =['business','entertaiment','general','health','science','sports','technologie'];
@@ -62,12 +66,24 @@ categories.forEach(element =>{
 
 app.post('/add_news',(req,res)=>{
     if(req.body){
-        // add a new ressource to Datbase
-        res.json({
-            'status':'success',
-            'message':"ressource successfully added in the database"
-        });
-        console.log('ressource successfully added in the database');
+        if(req.body.author && req.body.title && req.body.description 
+            && req.body.url && req.body.publishedAt  && req.body.content 
+                && req.body.country && req.body.category)
+        {
+                // add a new ressource to Datbase
+                res.json({
+                    'status':'success',
+                    'message':"ressource successfully added in the database"
+                });
+                console.log('ressource successfully added in the database');
+        }else{
+                res.json({
+                    'status':'error',
+                    'message':"some data is missing is missing"
+                });
+                console.log('some data is missing is missing');
+        }
+        
     }else{
         res.json({
             'status':'error',
