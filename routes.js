@@ -31,16 +31,6 @@ app.get('/news',(req,res)=>{
         .
         .
         */
-        //example :
-        "author": "Rafi Grandham",
-            "title": "Etiam justo. Etiam pretium iaculis justo.",
-            "description": "Nulla ac enim.",
-            "url": "https://ox.ac.uk/luctus/rutrum/nulla/tellus/in/sagittis.jpg?mus=blandit&etiam=mi&vel=in&augue=porttitor&vestibulum=pede&rutrum=justo&rutrum=eu&neque=massa&aenean=donec&auctor=dapibus&gravida=duis&sem=at&praesent=velit&id=eu&massa=est&id=congue&nisl=elementum&venenatis=in&lacinia=hac&aenean=habitasse&sit=platea&amet=dictumst&justo=morbi&morbi=vestibulum&ut=velit&odio=id&cras=pretium&mi=iaculis&pede=diam&malesuada=erat&in=fermentum&imperdiet=justo&et=nec&commodo=condimentum&vulputate=neque&justo=sapien&in=placerat&blandit=ante",
-            "urlToImage": "http://dummyimage.com/193x100.png/ff4444/ffffff",
-            "publishedAt": "1/30/2022",
-            "content": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum.",
-            "category" : "category",
-            "country" : "xx"
     });
     
 });
@@ -53,16 +43,6 @@ app.get('/news/country=:c_code',(req,res)=>{
             .
             .
             */
-            //example :
-            "author": "Rafi Grandham",
-            "title": "Etiam justo. Etiam pretium iaculis justo.",
-            "description": "Nulla ac enim.",
-            "url": "https://ox.ac.uk/luctus/rutrum/nulla/tellus/in/sagittis.jpg?mus=blandit&etiam=mi&vel=in&augue=porttitor&vestibulum=pede&rutrum=justo&rutrum=eu&neque=massa&aenean=donec&auctor=dapibus&gravida=duis&sem=at&praesent=velit&id=eu&massa=est&id=congue&nisl=elementum&venenatis=in&lacinia=hac&aenean=habitasse&sit=platea&amet=dictumst&justo=morbi&morbi=vestibulum&ut=velit&odio=id&cras=pretium&mi=iaculis&pede=diam&malesuada=erat&in=fermentum&imperdiet=justo&et=nec&commodo=condimentum&vulputate=neque&justo=sapien&in=placerat&blandit=ante",
-            "urlToImage": "http://dummyimage.com/193x100.png/ff4444/ffffff",
-            "publishedAt": "1/30/2022",
-            "content": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum.",
-            "category" : "category",
-            "country" : `${req.params.c_code}`
         });
     }else{
         res.status(404).json({
@@ -82,16 +62,6 @@ app.get('/news/category=:cat_code',(req,res)=>{
             .
             .
             */
-           //example :
-            "author": "Rafi Grandham",
-            "title": "Etiam justo. Etiam pretium iaculis justo.",
-            "description": "Nulla ac enim.",
-            "url": "https://ox.ac.uk/luctus/rutrum/nulla/tellus/in/sagittis.jpg?mus=blandit&etiam=mi&vel=in&augue=porttitor&vestibulum=pede&rutrum=justo&rutrum=eu&neque=massa&aenean=donec&auctor=dapibus&gravida=duis&sem=at&praesent=velit&id=eu&massa=est&id=congue&nisl=elementum&venenatis=in&lacinia=hac&aenean=habitasse&sit=platea&amet=dictumst&justo=morbi&morbi=vestibulum&ut=velit&odio=id&cras=pretium&mi=iaculis&pede=diam&malesuada=erat&in=fermentum&imperdiet=justo&et=nec&commodo=condimentum&vulputate=neque&justo=sapien&in=placerat&blandit=ante",
-            "urlToImage": "http://dummyimage.com/193x100.png/ff4444/ffffff",
-            "publishedAt": "1/30/2022",
-            "content": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum.",
-            "category" :`${req.params.cat_code}`,
-            "country" :  "xx"
         });
     }else{
         res.status(404).json({
