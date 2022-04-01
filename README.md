@@ -17,9 +17,9 @@ using Joi object schema **`const Joi = require('joi')`**
 
 ## **routes**
 ### GET : 
-#### 1. GET('/news') *home endpoint* <br/>
-#### 2. GET('/news/country=:c_code') *news based on country code* <br/>
-#### 3. GET('/news/category=:cat_code') *news based on category* <br/>
-#### 3. GET('/news/:id') *get a post by it's ID* <br/>
+- #### GET('/news') *recent news* <br/>
+- #### GET('/news/country=:c_code') *news based on country code* <br/>
+- #### GET('/news/category=:cat_code') *news based on category* <br/>
+- #### GET('/news/:id') *get a post by it's ID* <br/>
 ### POST :
-#### - post('/add_news') *create a new post* <br/>
+- #### POST('/add_news') *create a new post* <br/>
