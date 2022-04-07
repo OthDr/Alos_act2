@@ -3,28 +3,17 @@ const { redirect } = require('express/lib/response');
 const bParser = require('body-parser');
 const Joi = require('joi'); // A package for post validation
 
-const app = express();
-const port = process.env.PORT || 3000 ; // dinamic port based on machine ports otherwise use 3000
+const router = express.Router();
 
-
-
-app.use(bParser.json());    // Parse the POST body json
-app.use(bParser.urlencoded());  //Parse POST x-www-form-urlencoded 
+router.use(bParser.json());    // Parse the POST body json
+router.use(bParser.urlencoded());  //Parse POST x-www-form-urlencoded 
 
 var countries = ['dz','us','fr','ru','in','de','tr','eg','br','ca','cz','it','ua']; 
 var categories =['business','entertaiment','general','health','science','sports','technologie'];
 
 
-app.listen(port, ()=>{
-    console.log(`Server is listening on port: ${port}`);
-});
 
-app.get('/',(req,res)=>{
-    console.log(`HOME endpoint`);
-    
-});
-
-app.get('/news',(req,res)=>{
+router.get('/news',(req,res)=>{
     console.log(`Latest news from ${req.hostname}`);
     res.json({
         /* Get ressources from the datbase
@@ -35,7 +24,18 @@ app.get('/news',(req,res)=>{
     
 });
 
-app.get('/news/country=:c_code',(req,res)=>{
+router.get('/news/:id',(req,res)=>{
+    res.json({
+        /* Get ressources from the datbase
+        .
+        .
+        */
+    });
+    
+});
+
+
+router.get('/news/country=:c_code',(req,res)=>{
     if(countries.includes(`${req.params.c_code}`)){
         console.log(`News about a country: ${req.params.c_code}`);
         res.json({
@@ -54,7 +54,7 @@ app.get('/news/country=:c_code',(req,res)=>{
 });
 
 
-app.get('/news/category=:cat_code',(req,res)=>{
+router.get('/news/category=:cat_code',(req,res)=>{
     if(categories.includes(`${req.params.cat_code}`)){
         console.log(`News about a category: ${req.params.cat_code}`);
         res.json({
@@ -73,7 +73,7 @@ app.get('/news/category=:cat_code',(req,res)=>{
 
 //---------------  POST request  -------------
 
-app.post('/add_news',(req,res)=>{
+router.post('/add_news',(req,res)=>{
 
     // -----  Request body valid schema ---
     const schema =Joi.object({              
@@ -123,13 +123,4 @@ app.post('/add_news',(req,res)=>{
     
 });
 
-
- // ----------  status 404  ------------ 
-
-app.use((req,res)=>{
-    res.status(404).json({
-        'error':true,
-        'message':"this ressource doesn't exists"
-    });
-});
-
+module.exports = router;
