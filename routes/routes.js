@@ -2,73 +2,54 @@ const express = require('express');
 const { redirect } = require('express/lib/response');
 const bParser = require('body-parser');
 const Joi = require('joi'); // A package for post validation
+const db = require('../db.json');
+const { uniqueID } = require('mocha/lib/utils');
 
 const router = express.Router();
 
 router.use(bParser.json());    // Parse the POST body json
 router.use(bParser.urlencoded());  //Parse POST x-www-form-urlencoded 
 
-var countries = ['dz','us','fr','ru','in','de','tr','eg','br','ca','cz','it','ua']; 
-var categories =['business','entertaiment','general','health','science','sports','technologie'];
-
 
 
 router.get('/news',(req,res)=>{
     console.log(`Latest news from ${req.hostname}`);
-    res.json({
-        /* Get ressources from the datbase
-        .
-        .
-        */
-    });
+    res.json(db.news);
     
 });
 
 router.get('/news/:id',(req,res)=>{
-    res.json({
-        /* Get ressources from the datbase
-        .
-        .
-        */
-    });
+
+    let id = req.params.id;
+    let result = db.news.find(article => article.id === parseInt(id));
     
+    res.status(result ? 200 : 404)
+    .json(result ? result : {'message':"this ressource doesn't exists"});
+    console.log(result);
+
 });
 
 
 router.get('/news/country=:c_code',(req,res)=>{
-    if(countries.includes(`${req.params.c_code}`)){
-        console.log(`News about a country: ${req.params.c_code}`);
-        res.json({
-            /* Get ressource from the datbase
-            .
-            .
-            */
-        });
-    }else{
-        res.status(404).json({
-            'error':true,
-            'message':"this ressource doesn't exists"
-        });
-    }
-    
+
+    console.log(`News about a country: ${req.params.c_code}`);
+
+    let code = req.params.c_code;
+    let result = db.news.find(article => article.country == code);
+
+    res.status(result ? 200 : 404)
+    .json(result ? result : {'message':"this ressource doesn't exists"});
+    console.log(result);
 });
 
 
 router.get('/news/category=:cat_code',(req,res)=>{
-    if(categories.includes(`${req.params.cat_code}`)){
-        console.log(`News about a category: ${req.params.cat_code}`);
-        res.json({
-            /* Get ressource from the datbase
-            .
-            .
-            */
-        });
-    }else{
-        res.status(404).json({
-            'error':true,
-            'message':"this ressource doesn't exists"
-        });
-    }
+    let code = req.params.cat_code;
+    let result = db.news.find(article => article.country == code);
+
+    res.status(result ? 200 : 404)
+    .json(result ? result : {'message':"this ressource doesn't exists"});
+    console.log(result);
 });
 
 //---------------  POST request  -------------
@@ -94,13 +75,12 @@ router.post('/add_news',(req,res)=>{
         validation_data = schema.validate(req.body); // reslut of request body validation
         
         if(!validation_data.error)
-        {       
-            res.status(201);
-            /* add a new ressource to Datbase
-            .
-            .
-            */
-            res.json({
+        {   
+            req.body.id = uniqueID;
+            db.push(req.body);
+
+            res.status(201)
+            .json({
                 'error':false,
                 'message':"ressource successfully added in the database"
             });
