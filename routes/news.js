@@ -8,7 +8,7 @@ const { uniqueID } = require('mocha/lib/utils');
 const router = express.Router();
 
 router.use(bParser.json());    // Parse the POST body json
-router.use(bParser.urlencoded());  //Parse POST x-www-form-urlencoded 
+router.use(bParser.urlencoded({extended : true}));  //Parse POST urlencoded 
 
 
 
@@ -69,7 +69,6 @@ router.post('/add_news',(req,res)=>{
         country: Joi.string().min(2).max(2).required()
     });
 
-    
     if(req.body){ //request body isn't empty
 
         validation_data = schema.validate(req.body); // reslut of request body validation

@@ -3,6 +3,7 @@
 ### **How to use:**
 - `npm install` to install all node-modules.<br />
 - `nodemon routes` start server.<br />
+- `npm test` run test.<br />
 
 ### HTTP : GET POST
 - [x] **JSON request & response.**

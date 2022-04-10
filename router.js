@@ -1,5 +1,5 @@
 const express = require('express');
-const routes = require('./routes/routes.js');
+const routes = require('./routes/news.js');
 
 const app = express();
 const port = process.env.PORT || 3000 ; // dinamic port based on machine ports otherwise use 3000
