@@ -40,7 +40,7 @@ describe("Routes Testing",()=>{
 
         });
     });
-/*
+
     it("'GET /news/category=:cat_code' should return an object",()=>{
 
         chai.request(router)
@@ -67,7 +67,7 @@ describe("Routes Testing",()=>{
         });
 
     });
-*/
+
 
     it("'GET /news/:id' should return an oject",()=>{
 
