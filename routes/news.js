@@ -3,7 +3,9 @@ const { redirect } = require('express/lib/response');
 const bParser = require('body-parser');
 const Joi = require('joi'); // A package for post validation
 const db = require('../db.json');
+const uuid = require("uuid");
 const { uniqueID } = require('mocha/lib/utils');
+
 
 const router = express.Router();
 
@@ -23,8 +25,8 @@ router.get('/news/:id',(req,res)=>{
     let id = req.params.id;
     let result = db.news.find(article => article.id === parseInt(id));
     
-    res.status(result ? 200 : 404)
-    .json(result ? result : {'message':"this ressource doesn't exists"});
+    res.status(result ? 200 : 404).send( result ? {'error':false} : {'error':true} )
+    .json(result ? result :{'message':"this ressource doesn't exists"} );
     console.log(result);
 
 });
@@ -38,17 +40,17 @@ router.get('/news/country=:c_code',(req,res)=>{
     let result = db.news.find(article => article.country == code);
 
     res.status(result ? 200 : 404)
-    .json(result ? result : {'message':"this ressource doesn't exists"});
+    .json(result ? result+{'error':false} : {'error':true,'message':"this ressource doesn't exists"});
     console.log(result);
 });
 
 
 router.get('/news/category=:cat_code',(req,res)=>{
     let code = req.params.cat_code;
-    let result = db.news.find(article => article.country == code);
+    let result = db.news.find(article => article.category == code);
 
     res.status(result ? 200 : 404)
-    .json(result ? result : {'message':"this ressource doesn't exists"});
+    .json(result ? result+{'error':false} : {'error':true,'message':"this ressource doesn't exists"});
     console.log(result);
 });
 
@@ -75,7 +77,8 @@ router.post('/add_news',(req,res)=>{
         
         if(!validation_data.error)
         {   
-            req.body.id = uniqueID;
+            let id = `id : ${uuid.v4()}`;
+            req.body = id + req.body;       //adding an id field with unique value
             db.push(req.body);
 
             res.status(201)

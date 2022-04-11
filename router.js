@@ -11,6 +11,10 @@ app.listen(port, ()=>{
 
 
 app.get('/',(req,res)=>{
+    res.status(200).json({
+        'error':false,
+        'message':'successfully connected to home endpoint'
+    });
     console.log(`HOME endpoint`);
 });
 
@@ -26,3 +30,7 @@ app.use((req,res)=>{
         'message':"this ressource doesn't exists"
     });
 });
+
+
+
+module.exports = app ;
