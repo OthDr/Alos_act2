@@ -48,7 +48,6 @@ describe("Routes Testing",()=>{
         .end((err,res)=>{
 
             res.should.have.status(200);
-            expect(res.body.error).to.be.false;
             
         });
 
@@ -62,7 +61,6 @@ describe("Routes Testing",()=>{
         .end((err,res)=>{
 
             res.should.have.status(200);
-            expect(res.body.error).to.be.false;
             
         });
 
@@ -76,7 +74,6 @@ describe("Routes Testing",()=>{
         .end((err,res)=>{
 
             res.should.have.status(200);
-            expect(res.body.error).to.be.false;
             
         });
 
@@ -105,7 +102,6 @@ describe("Routes Testing",()=>{
             expect(schema.validate(post)).to.be.false;
             res.should.have.status(201);
             res.body.should.be.a('object');
-            expect(res.body.error).to.be.false;
             
         });
 

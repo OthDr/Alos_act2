@@ -4,19 +4,17 @@ const routes = require('./routes/news.js');
 const app = express();
 const port = process.env.PORT || 3000 ; // dinamic port based on machine ports otherwise use 3000
 
-app.listen(port, ()=>{
-    console.log(`Server is listening on port: ${port}`);
-});
-
-
-
 app.get('/',(req,res)=>{
     res.status(200).json({
         'error':false,
         'message':'successfully connected to home endpoint'
     });
-    console.log(`HOME endpoint`);
 });
+
+app.get('/users/:userId/books/:bookId', (req, res) => {
+    res.send(req.params)
+});
+
 
  //-----------  News routes  ----------
 
@@ -32,5 +30,10 @@ app.use((req,res)=>{
 });
 
 
+
+
+app.listen(port, ()=>{
+    console.log(`Server is listening on port: ${port}`);
+});
 
 module.exports = app ;

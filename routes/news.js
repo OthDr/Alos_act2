@@ -1,10 +1,8 @@
 const express = require('express');
-const { redirect } = require('express/lib/response');
 const bParser = require('body-parser');
 const Joi = require('joi'); // A package for post validation
 const db = require('../db.json');
 const uuid = require("uuid");
-const { uniqueID } = require('mocha/lib/utils');
 
 
 const router = express.Router();
@@ -15,8 +13,42 @@ router.use(bParser.urlencoded({extended : true}));  //Parse POST urlencoded
 
 
 router.get('/news',(req,res)=>{
-    console.log(`Latest news from ${req.hostname}`);
+
     res.json(db.news);
+    
+});
+
+router.get('/news/country=:c_code',(req,res)=>{
+
+    console.log(`News about a country: ${req.params.c_code}`);
+    let code = req.params.c_code;
+    let resultArray =new Array() ;
+
+    db.news.forEach(article => { // query data from db.json
+        if(article.country == code){
+            resultArray.push(article);
+        }
+    });
+
+    res.status(resultArray ? 200 : 404)
+    .json(resultArray ? resultArray : {'error':true,'message':"ressource not found"});
+    console.log(resultArray);
+});
+
+
+router.get('/news/category=:cat_code',(req,res)=>{
+    let code = req.params.cat_code;
+    let resultArray =new Array() ;
+
+    db.news.forEach(article => { // query data from db.json
+        if(article.category == code){
+            resultArray.push(article);
+        }
+    });
+
+    res.status(resultArray ? 200 : 404)
+    .json(resultArray ? resultArray : {'error':true,'message':"ressource not found"});
+    console.log(resultArray);
     
 });
 
@@ -25,33 +57,10 @@ router.get('/news/:id',(req,res)=>{
     let id = req.params.id;
     let result = db.news.find(article => article.id === parseInt(id));
     
-    res.status(result ? 200 : 404).send( result ? {'error':false} : {'error':true} )
+    res.status(result ? 200 : 404)
     .json(result ? result :{'message':"this ressource doesn't exists"} );
     console.log(result);
 
-});
-
-
-router.get('/news/country=:c_code',(req,res)=>{
-
-    console.log(`News about a country: ${req.params.c_code}`);
-
-    let code = req.params.c_code;
-    let result = db.news.find(article => article.country == code);
-
-    res.status(result ? 200 : 404)
-    .json(result ? result+{'error':false} : {'error':true,'message':"this ressource doesn't exists"});
-    console.log(result);
-});
-
-
-router.get('/news/category=:cat_code',(req,res)=>{
-    let code = req.params.cat_code;
-    let result = db.news.find(article => article.category == code);
-
-    res.status(result ? 200 : 404)
-    .json(result ? result+{'error':false} : {'error':true,'message':"this ressource doesn't exists"});
-    console.log(result);
 });
 
 //---------------  POST request  -------------

@@ -12,7 +12,7 @@
 ### POST request body validation & Errors
 using Joi object schema **`const Joi = require('joi')`**
 - [x] **Used Joi package :** Created an object schema to validate the *req.body*.<br />
-- [x] **Send back the error** on the response. <br />
+- [x] **Send back the error** on the response. <br/>
 ### **Middleware**
 #### **body-parser `const bParser = require('body-parser')`:** To parse request body  *JSON or urlencoded* .
 
@@ -24,3 +24,11 @@ using Joi object schema **`const Joi = require('joi')`**
 - #### GET('/news/:id') *get a post by it's ID* <br/>
 ### POST :
 - #### POST('/add_news') *create a new post* <br/>
+
+## **testing**
+### Mocha & chai
+`"scripts": {
+    "test": "mocha --exit"
+}`
+<br/>
+**chai-http (request testing) , should & expect (Assertions)**
